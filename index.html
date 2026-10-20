@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Data Types لە Java OOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f6;--card:#fff;--ink:#14213d;--mute:#52607a;--acc:#0f766e;--acc2:#b7791f;--line:#d5dde8;--code:#0f1b2d;--codeink:#d8e6f5;--bar:#0f766e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1623;--card:#16213a;--ink:#e6edf7;--mute:#9fb0c9;--acc:#3cc2b3;--acc2:#e3a94b;--line:#27385a;--code:#0a1220;--bar:#3cc2b3}}
+:root[data-theme="dark"]{--bg:#0e1623;--card:#16213a;--ink:#e6edf7;--mute:#9fb0c9;--acc:#3cc2b3;--acc2:#e3a94b;--line:#27385a;--code:#0a1220;--bar:#3cc2b3}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Vazirmatn",Tahoma,"Noto Naskh Arabic",sans-serif;line-height:1.9;font-size:17px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--card);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 12px;z-index:5}
+nav a{white-space:nowrap;color:var(--mute);text-decoration:none;padding:4px 12px;border-radius:99px;font-size:14px}
+nav a:hover,nav a:focus-visible{background:var(--bg);color:var(--ink);outline:2px solid var(--acc)}
+header{max-width:900px;margin:0 auto;padding:64px 20px 32px}
+h1{font-size:clamp(34px,7vw,64px);line-height:1.25;margin:0 0 12px;font-weight:800}
+h1 code{direction:ltr;unicode-bidi:isolate;color:var(--acc)}
+header p{color:var(--mute);max-width:60ch;margin:0}
+main{max-width:900px;margin:0 auto;padding:0 20px 60px}
+section{padding:36px 0;border-top:1px solid var(--line)}
+h2{font-size:28px;margin:0 0 14px;font-weight:800}
+h3{font-size:20px;margin:22px 0 4px;color:var(--acc)}
+p{margin:0 0 12px}
+code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;direction:ltr;unicode-bidi:isolate}
+pre{background:var(--code);color:var(--codeink);padding:14px 16px;border-radius:8px;overflow-x:auto;text-align:left;font-size:14px;line-height:1.6;margin:8px 0 14px}
+:not(pre)>code{background:var(--bg);border:1px solid var(--line);padding:0 6px;border-radius:4px;font-size:.88em}
+.wrap{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;width:100%;min-width:560px;background:var(--card)}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top;font-size:15px}
+th{background:var(--bg);font-weight:600}
+td:first-child{font-weight:600;color:var(--acc)}
+.bar{height:10px;border-radius:5px;background:var(--bar);min-width:6px;margin-top:8px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.box h3{margin-top:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+button{font:inherit;font-size:15px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:6px 16px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--acc);color:#fff;border-color:var(--acc)}
+button:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
+#ans{background:var(--card);border-right:4px solid var(--acc2);border-radius:8px;padding:14px 18px;min-height:96px}
+#ans strong{font-size:20px;direction:ltr;unicode-bidi:isolate;display:inline-block}
+ul{padding-inline-start:22px;margin:0 0 12px}
+footer{text-align:center;color:var(--mute);padding:30px 20px 50px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<nav>
+<a href="#what">Data Type چییە</a><a href="#prim">Primitive</a><a href="#ref">Reference</a><a href="#wrap">Wrapper</a><a href="#diff">جیاوازی</a><a href="#cast">Casting</a><a href="#pick">هەڵبژاردن</a><a href="#ex">نموونە</a>
+</nav>
+<header>
+<h1>جۆرەکانی داتا لە <code>Java</code></h1>
+<p>سمینار لەسەر Data Types لە Object-Oriented Programming: هەر جۆرێک چییە، چەند بیر داگیر دەکات، و کەی بەکاردێت.</p>
+</header>
+<main>
+
+<section id="what">
+<h2>Data Type چییە؟</h2>
+<p>Data Type دیاری دەکات گۆڕاوەکە (Variable) چ جۆرە داتایەک هەڵدەگرێت، چەند بیر (Memory) داگیر دەکات، و چ کارێک لەسەری دەکرێت. Java زمانێکی <b>Strongly Typed</b>ـە: پێویستە جۆری هەموو گۆڕاوێک پێش بەکارهێنان دیاری بکرێت.</p>
+<pre>int age = 20;</pre>
+<div class="two">
+<div class="box"><h3>Primitive</h3><p>٨ جۆری سەرەتایی، بەهاکە ڕاستەوخۆ هەڵدەگرن.</p></div>
+<div class="box"><h3>Reference</h3><p>ئاماژە بۆ Object لە Heap هەڵدەگرن: String, Array, Class, Interface, Enum...</p></div>
+</div>
+</section>
+
+<section id="prim">
+<h2>Primitive Data Types</h2>
+<p>درێژی هێڵە سەوزەکە قەبارەی بیرە (بایت).</p>
+<div class="wrap"><table>
+<tr><th>جۆر</th><th>قەبارە</th><th>بۆچی بەکاردێت</th><th>نموونە</th></tr>
+<tr><td>byte</td><td>١ بایت<div class="bar" style="width:12%"></div></td><td>ژمارەی تەواوی بچووک (-١٢٨ تا ١٢٧)؛ بۆ پاشەکەوتکردنی بیر و کار لەگەڵ فایل/Network</td><td><code>byte b = 100;</code></td></tr>
+<tr><td>short</td><td>٢ بایت<div class="bar" style="width:25%"></div></td><td>ژمارەی تەواو، لە byte گەورەتر</td><td><code>short s = 5000;</code></td></tr>
+<tr><td>int</td><td>٤ بایت<div class="bar" style="width:50%"></div></td><td>باوترین جۆر بۆ ژمارەی تەواو (تەمەن، ژماردن)</td><td><code>int age = 20;</code></td></tr>
+<tr><td>long</td><td>٨ بایت<div class="bar" style="width:100%"></div></td><td>ژمارەی تەواوی زۆر گەورە (دراو، کات، population)</td><td><code>long p = 8000000000L;</code></td></tr>
+<tr><td>float</td><td>٤ بایت<div class="bar" style="width:50%"></div></td><td>ژمارەی دەهەمی (وردییەکی کەمتر)</td><td><code>float f = 3.14f;</code></td></tr>
+<tr><td>double</td><td>٨ بایت<div class="bar" style="width:100%"></div></td><td>ژمارەی دەهەمی بە وردی زیاتر (حیساباتی زانستی)</td><td><code>double d = 3.14159;</code></td></tr>
+<tr><td>char</td><td>٢ بایت<div class="bar" style="width:25%"></div></td><td>یەک پیت یان هێما</td><td><code>char c = 'A';</code></td></tr>
+<tr><td>boolean</td><td>١ بیت (بە تیۆری)<div class="bar" style="width:6%"></div></td><td>تەنها true یان false، بۆ مەرج و بڕیار</td><td><code>boolean ok = true;</code></td></tr>
+</table></div>
+<h3>تایبەتمەندییەکان</h3>
+<ul>
+<li>بەهاکە ڕاستەوخۆ لە Stack Memory هەڵدەگرن؛ خێرا و سادەن.</li>
+<li>Object نین و Method یان Property نییان.</li>
+<li>وەک Field لە Class Default Value یان هەیە: <code>int</code> = 0، <code>double</code> = 0.0، <code>boolean</code> = false.</li>
+</ul>
+</section>
+
+<section id="ref">
+<h2>Non-Primitive (Reference) Types</h2>
+<p>ئاماژە (Reference) بۆ Object لە Heap Memory هەڵدەگرن، نەک خودی بەهاکە.</p>
+<h3>String</h3>
+<p>بۆ دەق. Object-ە و Immutable-ە (ناگۆڕدرێت).</p>
+<pre>String name = "Ahmed";
+System.out.println(name.length());</pre>
+<h3>Array</h3>
+<p>کۆمەڵەیەک داتا لە هەمان جۆر لە یەک گۆڕاودا.</p>
+<pre>int[] numbers = {10, 20, 30};</pre>
+<h3>Class</h3>
+<p>قاڵبی دروستکردنی Object، گرنگترین بنەمای OOP.</p>
+<pre>class Student { String name; int age; }
+Student s = new Student();</pre>
+<h3>Interface</h3>
+<p>گرێبەستێک کە دیاری دەکات Class چ Method-ێکی دەبێت؛ بۆ Abstraction و Polymorphism.</p>
+<h3>Enum</h3>
+<p>کۆمەڵەیەک بەهای نەگۆڕی ناودار، وەک ڕۆژەکانی هەفتە.</p>
+<pre>enum Day { SATURDAY, SUNDAY, MONDAY }</pre>
+<h3>Collections</h3>
+<p><code>ArrayList</code>، <code>HashMap</code>، <code>HashSet</code> بۆ بەڕێوەبردنی کۆمەڵە داتای گۆڕاو لە قەبارە.</p>
+</section>
+
+<section id="wrap">
+<h2>Wrapper Classes</h2>
+<p>هەر جۆرێکی Primitive Class-ێکی هاوتای هەیە:</p>
+<div class="wrap"><table style="min-width:360px">
+<tr><th>Primitive</th><th>Wrapper</th></tr>
+<tr><td>int</td><td>Integer</td></tr><tr><td>double</td><td>Double</td></tr><tr><td>char</td><td>Character</td></tr><tr><td>boolean</td><td>Boolean</td></tr><tr><td>long</td><td>Long</td></tr>
+</table></div>
+<p>بۆچی بەکاردێن؟ بۆ بەکارهێنان لەناو Collections (<code>ArrayList&lt;Integer&gt;</code>)، بۆ گۆڕین نێوان جۆرەکان (<code>Integer.parseInt("123")</code>)، و بۆ بەهای <code>null</code>.</p>
+<pre>Integer x = 5;   // Autoboxing
+int y = x;       // Unboxing</pre>
+</section>
+
+<section id="diff">
+<h2>جیاوازی Primitive و Reference</h2>
+<div class="wrap"><table>
+<tr><th>تایبەتمەندی</th><th>Primitive</th><th>Reference</th></tr>
+<tr><td>هەڵگرتن</td><td>بەهاکە (Stack)</td><td>ئاماژە بۆ Object (Heap)</td></tr>
+<tr><td>Method هەیە؟</td><td>نەخێر</td><td>بەڵێ</td></tr>
+<tr><td>بەهای null</td><td>نایگرێت</td><td>دەیگرێت</td></tr>
+<tr><td>خێرایی</td><td>خێراتر</td><td>هێواشتر</td></tr>
+<tr><td>ڕێنووس</td><td><code>int</code> (پیتی بچووک)</td><td><code>String</code> (پیتی گەورە)</td></tr>
+</table></div>
+</section>
+
+<section id="cast">
+<h2>Type Casting</h2>
+<div class="two">
+<div class="box"><h3>Widening (خۆکار)</h3><p>بچووک ← گەورە</p><pre>int a = 10;
+double b = a;   // 10.0</pre></div>
+<div class="box"><h3>Narrowing (دەستی)</h3><p>گەورە ← بچووک، لەوانەیە بەشێک لە داتا ون بێت.</p><pre>double x = 9.7;
+int y = (int) x;   // 9</pre></div>
+</div>
+</section>
+
+<section id="pick">
+<h2>کام جۆر هەڵبژێرم؟</h2>
+<p>جۆرێکی داتا هەڵبژێرە و ڕێنماییەکە ببینە:</p>
+<div class="pick" id="opts" role="group" aria-label="جۆری داتا"></div>
+<div id="ans" aria-live="polite">یەکێک لە دوگمەکان دابگرە.</div>
+</section>
+
+<section id="ex">
+<h2>نموونەی تەواو</h2>
+<pre>public class Student {
+    String name;        // String
+    int age;            // int
+    double gpa;         // double
+    boolean isActive;   // boolean
+    char grade;         // char
+
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.name = "Sara";
+        s.age = 21;
+        s.gpa = 3.8;
+        s.isActive = true;
+        s.grade = 'A';
+        System.out.println(s.name + " - " + s.gpa);
+    }
+}</pre>
+</section>
+
+<section id="sum">
+<h2>کورتەی سمینار</h2>
+<ul>
+<li>Java هەشت جۆری Primitive و چەندین جۆری Reference هەیە.</li>
+<li>هەڵبژاردنی جۆری دروست کارایی و بیر باشتر دەکات.</li>
+<li>لە OOP دا Class، Interface و Enum جۆری تایبەتی خۆمانن.</li>
+<li>Wrapper Classes پردی نێوان Primitive و Object-ن.</li>
+</ul>
+</section>
+</main>
+<footer>سوپاس بۆ گوێگرتنتان. پرسیار و وەڵام؟</footer>
+<script>
+var D=[["ژمارەی تەواوی ئاسایی","int","بۆ تەمەن، ژماردن و زۆربەی ژمارە تەواوەکان."],
+["ژمارەی زۆر گەورە","long","کاتێک int نایگرێت: دراو، کات، population."],
+["ژمارەی دەهەمی","double","بە وردی زیاتر؛ باشترین بژاردە بۆ حیساباتی دەهەمی."],
+["بەڵێ / نەخێر","boolean","تەنها true یان false، بۆ مەرج و بڕیار."],
+["یەک پیت","char","یەک پیت یان هێما، لەناو ' '."],
+["دەق","String","Object-ە و Immutable-ە، لەناو \" \"."],
+["کۆمەڵە","Array / ArrayList","Array قەبارەی نەگۆڕ؛ ArrayList قەبارەی گۆڕاو."]];
+var o=document.getElementById("opts"),a=document.getElementById("ans");
+D.forEach(function(d,i){var b=document.createElement("button");b.textContent=d[0];b.setAttribute("aria-pressed","false");
+b.onclick=function(){o.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false")});
+b.setAttribute("aria-pressed","true");a.innerHTML="<strong></strong><p></p>";a.firstChild.textContent=d[1];a.lastChild.textContent=d[2];};
+o.appendChild(b);});
+</script>
+</body>
+</html>
